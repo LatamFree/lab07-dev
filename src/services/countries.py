@@ -5,12 +5,12 @@ from src.config import Settings, get_settings
 
 class Countries():
     def __init__(self, settings: Settings = Depends(get_settings)):
-        self.app_settings = settings
+        self.app_settings: Settings = settings
 
     def get_south_america(self):
         results = []
         subregion = "South America"
-        countries_api_url = f"https://restcountries.com/v3.1/subregion/{subregion}?fields=name,capital,currencies,flags,cca2,cca3"
+        countries_api_url = f"{self.app_settings.REST_COUNTRIES_BASE_URL}/subregion/{subregion}?fields=name,capital,currencies,flags,cca2,cca3"
 
         try: 
             response_countries = requests.get(countries_api_url)

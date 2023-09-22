@@ -1,0 +1,21 @@
+name: Python Integration Tests
+
+on: push
+
+jobs:
+  tests: 
+    name: 'Python pytest'
+    runs-on: ubuntu-latest
+    env:
+      REST_COUNTRIES_BASE_URL: "https://restcountries.com/v3.1"
+      WEATHER_BASE_URL: "https://api.weatherapi.com/v1"
+      WEATHERAPI_KEY: ${{ secrets.WEATHERAPI_KEY_ADO }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    
+    - name: pytest
+      run: |
+        ./tests/setup
+        pipenv run pytest

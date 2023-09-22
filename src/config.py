@@ -7,8 +7,8 @@ def get_settings():
 
 class Settings(BaseSettings):
     LOG_LEVEL: str = "WARNING"
-    REST_COUNTRIES_BASE_URL: str
-    WEATHER_BASE_URL: str
-    WEATHERAPI_KEY: str
+    REST_COUNTRIES_BASE_URL: str = ''
+    WEATHER_BASE_URL: str = ''
+    WEATHERAPI_KEY: str = ''
 
     model_config = SettingsConfigDict(env_file=".env")
