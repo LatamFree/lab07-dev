@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+REGISTRY_NAME="gcr.io"
+# Crea una variable llamada IMAGE_NAME que arme el formato requerido por GCP
+IMAGE_NAME="$REGISTRY_NAME/$GCP_PROJECT/$GCP_APPLICATION"
+# Agrega los comandos build y push utilizando la variable IMAGE_NAME
+docker build -t $IMAGE_NAME .
+docker push $IMAGE_NAME

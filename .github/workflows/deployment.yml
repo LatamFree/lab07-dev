@@ -1,0 +1,36 @@
+name: Deploy to Cloud Run
+on: workflow_dispatch
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    env:
+      GCP_PROJECT: ${{ secrets.GCP_STUDENTS_PROJECT }}
+      GCP_APPLICATION: "fast-api-test-<TU-NOMBRE-USUARIO>"
+      REST_COUNTRIES_BASE_URL: "https://restcountries.com/v3.1"
+      WEATHER_BASE_URL: "https://api.weatherapi.com/v1"
+      WEATHERAPI_KEY: ${{ secrets.WEATHERAPI_KEY_ADO }}
+  
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    # Setup gcloud CLI
+    - uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.STUDENTS_GCP_CREDENTIALS }}'
+
+    # Configure Docker with Credentials
+    - name: Configure Docker
+      run: |
+        gcloud auth configure-docker
+      
+    # Build the Docker image
+    - name: Build & Publish
+      run: |
+        gcloud config set project ${{ env.GCP_PROJECT }}
+        ./scripts/publish-image
+      
+    # Deploy the Docker image to the GKE cluster
+    - name: Deploy
+      run: ./scripts/deploy-image

@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+REGISTRY_NAME="gcr.io"
+IMAGE_NAME="$REGISTRY_NAME/$GCP_PROJECT/$GCP_APPLICATION"
+
+gcloud config set run/region us-central1
+gcloud run deploy $GCP_APPLICATION \
+  --image $IMAGE_NAME \
+  --set-env-vars REST_COUNTRIES_BASE_URL=$REST_COUNTRIES_BASE_URL \
+  --set-env-vars WEATHER_BASE_URL=$WEATHER_BASE_URL \
+  --set-env-vars WEATHERAPI_KEY=$WEATHERAPI_KEY \
+  --platform managed \
+  --allow-unauthenticated \
+  --memory 512M \
+  --format='value(status.url)' | awk '{ print "GCP_URL="$1 }' > DEPLOY_URL
+cat DEPLOY_URL
