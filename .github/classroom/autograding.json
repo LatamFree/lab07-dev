@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "Integration Tests",
+      "setup": "",
+      "run": "./tests/test_lab",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": 100
+    }
+  ]
+}
