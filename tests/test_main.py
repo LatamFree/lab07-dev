@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 from tests.utils import check_valid_schema
+from unittest.mock import Mock, patch
 
 from src.main import app
 

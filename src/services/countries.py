@@ -5,7 +5,7 @@ from src.config import Settings, get_settings
 
 class Countries():
     def __init__(self, settings: Settings = Depends(get_settings)):
-        self.app_settings: Settings = settings
+        self.app_settings = settings
 
     def get_south_america(self):
         results = []
